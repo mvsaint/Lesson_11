@@ -1,41 +1,51 @@
 import React from "react";
-import CollapseWrapper from "../common/collapse";
 import PropTypes from "prop-types";
-
-const UpdateComponent = ({ children }) => {
-    return React.Children.map(children, (child) => {
-        return React.cloneElement(child, {
-            ...child.props,
-            text: children.indexOf(child) + 1 + ". " + child.props.text
-        });
-    });
-};
+import CollapseWrapper from "../common/collapse";
+import Divider from "../common/divider";
+import SmallTitle from "../common/typografy/smallTitle";
 
 const ChildrenExercise = () => {
     return (
         <CollapseWrapper title="Упражнение">
             <p className="mt-3">
                 У вас есть компоненты Списка. Вам необходимо к каждому из них
-                добавить порядковый номер, относительно того, как они
+                добавить порядковый номер, относительно того как они
                 располагаются на странице. Вы можете использовать как{" "}
                 <code>React.Children.map</code> так и{" "}
                 <code>React.Children.toArray</code>
             </p>
-            <UpdateComponent>
-                <Component text="Компонент списка" />
-                <Component text="Компонент списка" />
-                <Component text="Компонент списка" />
-            </UpdateComponent>
+            <Divider />
+            <SmallTitle>Решение</SmallTitle>
+
+            <ComponentsList>
+                <Component />
+                <Component />
+                <Component />
+            </ComponentsList>
         </CollapseWrapper>
     );
 };
-
-const Component = ({ text }) => {
-    return <div>{text}</div>;
+const ComponentsList = ({ children }) => {
+    const arrayOfChildren = React.Children.toArray(children);
+    console.log(arrayOfChildren);
+    return React.Children.map(arrayOfChildren, (child) =>
+        React.cloneElement(child, {
+            ...child.props,
+            id: +child.key.replace(".", "") + 1
+        })
+    );
 };
-
+ComponentsList.propTypes = {
+    children: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.node
+    ])
+};
+const Component = ({ id }) => {
+    console.log(id);
+    return <div>{id} Компонент списка</div>;
+};
 Component.propTypes = {
-    text: PropTypes.string
+    id: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 };
-
 export default ChildrenExercise;

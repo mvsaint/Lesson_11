@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useCallback } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import CardWrapper from "../../common/Card";
 import SmallTitle from "../../common/typografy/smallTitle";
 
@@ -11,7 +11,7 @@ const UseCallBackExample = () => {
         setData((prevState) => ({ ...prevState, [target.name]: target.value }));
     };
 
-    // Without callback
+    // Without Callback
     const validateWithOutCallback = (data) => {
         console.log(data);
     };
@@ -19,7 +19,7 @@ const UseCallBackExample = () => {
         withOutCallback.current++;
     }, [validateWithOutCallback]);
 
-    // With callback
+    // With Callback
     const validateWithCallback = useCallback((data) => {
         console.log(data);
     }, []);
@@ -35,17 +35,17 @@ const UseCallBackExample = () => {
     return (
         <CardWrapper>
             <SmallTitle>Example</SmallTitle>
-            <p>Render withOutCallback: {withOutCallback.current}</p>
-            <p>Render withCallback: {withCallback.current}</p>
+            <p> Render withOutCallback: {withOutCallback.current}</p>
+            <p> Render withCallback: {withCallback.current}</p>
             <label htmlFor="email" className="form-label">
                 Email
             </label>
             <input
                 type="email"
-                className="form-control mb-2"
+                className="form-control"
                 id="email"
-                name="email"
                 value={data.email || ""}
+                name="email"
                 onChange={handleChange}
             />
         </CardWrapper>

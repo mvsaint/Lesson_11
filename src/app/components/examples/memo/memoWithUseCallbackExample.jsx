@@ -1,6 +1,5 @@
-import React, { useCallback, useState, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import PropTypes from "prop-types";
-
 const LogOutButton = ({ onLogOut }) => {
     useEffect(() => {
         console.log("render button");
@@ -8,11 +7,11 @@ const LogOutButton = ({ onLogOut }) => {
 
     return (
         <button className="btn btn-primary" onClick={onLogOut}>
-            Logout
+            {" "}
+            LogOut
         </button>
     );
 };
-
 LogOutButton.propTypes = {
     onLogOut: PropTypes.func
 };
@@ -35,11 +34,12 @@ const MemoWithUseCallbackExample = (props) => {
     return (
         <>
             <button
-                className="btn btn-primary me-1"
+                className="btn btn-primary"
                 onClick={() => setState(!state)}
             >
                 initiate rerender
             </button>
+
             <MemoizedLogOutButton onLogOut={handleLogOut} />
         </>
     );
